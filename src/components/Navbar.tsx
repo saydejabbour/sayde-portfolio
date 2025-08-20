@@ -53,6 +53,12 @@ const Navbar = () => {
               >
                 Contact
               </button>
+              <a
+                href="/login"
+                className="text-foreground hover:text-primary px-3 py-2 text-sm font-medium transition-colors duration-200"
+              >
+                Admin
+              </a>
             </div>
           </div>
 
@@ -98,6 +104,12 @@ const Navbar = () => {
             >
               Contact
             </button>
+            <a
+              href="/login"
+              className="text-foreground hover:text-primary block px-3 py-2 text-base font-medium w-full text-left transition-colors duration-200"
+            >
+              Admin
+            </a>
           </div>
         </div>
       )}
