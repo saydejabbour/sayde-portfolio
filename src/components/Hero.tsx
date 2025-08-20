@@ -8,7 +8,7 @@ const Hero = () => {
     queryKey: ['profile'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('profile')
+        .from('profiles')
         .select('*')
         .single();
       if (error) throw error;

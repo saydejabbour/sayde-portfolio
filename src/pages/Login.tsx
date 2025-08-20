@@ -60,7 +60,7 @@ const Login = () => {
       if (!user) throw new Error('No user found after sign-in');
 
       const { data: userProfile, error: profileError } = await supabase
-        .from('profile')
+        .from('profiles')
         .select('role')
         .eq('id', user.id)
         .single();

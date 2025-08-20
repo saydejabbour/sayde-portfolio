@@ -26,7 +26,7 @@ const AdminProfile = () => {
       if (!user) throw new Error('Not authenticated');
       
       const { data, error } = await supabase
-        .from('profile')
+        .from('profiles')
         .select('*')
         .eq('id', user.id)
         .single();
@@ -80,7 +80,7 @@ const AdminProfile = () => {
       if (!user) throw new Error('Not authenticated');
       
       const { error } = await supabase
-        .from('profile')
+        .from('profiles')
         .update({
           name,
           role_title: roleTitle,
