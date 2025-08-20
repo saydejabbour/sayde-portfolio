@@ -5,15 +5,19 @@ import { supabase } from '@/integrations/supabase/client';
 
 const About = () => {
   const { data: profile } = useQuery({
-    queryKey: ['profile'],
+    queryKey: ['admin-profile'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .single();
+        .eq('role', 'admin')
+        .limit(1)
+        .maybeSingle();
       if (error) throw error;
       return data;
     },
+    refetchOnMount: 'always',
+    staleTime: 0,
   });
 
   const stats = [

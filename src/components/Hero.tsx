@@ -5,15 +5,19 @@ import { supabase } from '@/integrations/supabase/client';
 
 const Hero = () => {
   const { data: profile } = useQuery({
-    queryKey: ['profile'],
+    queryKey: ['admin-profile'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .single();
+        .eq('role', 'admin')
+        .limit(1)
+        .maybeSingle();
       if (error) throw error;
       return data;
     },
+    refetchOnMount: 'always',
+    staleTime: 0,
   });
 
   const scrollToContact = () => {
@@ -23,13 +27,14 @@ const Hero = () => {
     }
   };
 
-  const handleResumeDownload = () => {
+  const getResumeUrl = () => {
     if (profile?.resume_file) {
       const { data } = supabase.storage
         .from('assets')
         .getPublicUrl(profile.resume_file);
-      window.open(data.publicUrl, '_blank');
+      return data.publicUrl;
     }
+    return null;
   };
 
   return (
@@ -58,7 +63,7 @@ const Hero = () => {
                 {profile?.role_title || 'Computer Science Student & Developer'}
               </h2>
               <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-                Building secure, scalable, and user-friendly applications with a focus on innovation and clean design.
+                {profile?.bio || 'Building secure, scalable, and user-friendly applications with a focus on innovation and clean design.'}
               </p>
             </div>
 
@@ -70,14 +75,27 @@ const Hero = () => {
               >
                 Get a project
               </Button>
-              <Button
-                onClick={handleResumeDownload}
-                variant="outline"
-                size="lg"
-                className="border-2 border-muted-foreground/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary px-8 py-4 text-lg font-medium transition-all duration-300"
-              >
-                My Resume
-              </Button>
+              {getResumeUrl() ? (
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-muted-foreground/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary px-8 py-4 text-lg font-medium transition-all duration-300"
+                >
+                  <a href={getResumeUrl()} download target="_blank" rel="noopener noreferrer">
+                    My Resume
+                  </a>
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="lg"
+                  disabled
+                  className="border-2 border-muted-foreground/20 text-muted-foreground px-8 py-4 text-lg font-medium opacity-50"
+                >
+                  Resume Not Available
+                </Button>
+              )}
             </div>
           </div>
 
@@ -95,13 +113,13 @@ const Hero = () => {
                     {profile?.profile_picture ? (
                       <img
                         src={supabase.storage.from('assets').getPublicUrl(profile.profile_picture).data.publicUrl}
-                        alt={profile.name || 'Sayde Jabbour'}
+                        alt={profile?.name || 'Profile picture'}
                         className="w-full h-full object-cover"
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-muted to-muted/30 flex items-center justify-center">
                         <span className="text-8xl font-bold text-muted-foreground">
-                          {(profile?.name || 'SJ').charAt(0)}
+                          {(profile?.name || 'Admin').charAt(0).toUpperCase()}
                         </span>
                       </div>
                     )}
