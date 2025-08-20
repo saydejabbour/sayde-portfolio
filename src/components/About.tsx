@@ -47,9 +47,8 @@ const About = () => {
     <section id="about" className="py-32 bg-background relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            About{' '}
-            <span className="text-primary">me</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary">
+            About me
           </h2>
           <div className="w-20 h-1 bg-primary mb-8"></div>
         </div>
