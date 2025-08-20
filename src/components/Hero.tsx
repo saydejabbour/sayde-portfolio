@@ -59,30 +59,13 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                onClick={scrollToContact}
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-medium shadow-[var(--shadow-royal)] hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                Get a project
-              </Button>
               {profile?.resume_file && (
-                <>
-                  <a 
-                    href={supabase.storage.from('assets').getPublicUrl(profile.resume_file).data.publicUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center border-2 border-muted-foreground/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary px-8 py-4 text-lg font-medium transition-all duration-300 rounded-md"
-                  >
-                    View Resume
-                  </a>
-                  <a 
-                    href={supabase.storage.from('assets').getPublicUrl(profile.resume_file).data.publicUrl + '?download=Sayde_Jabbour_CV.pdf'}
-                    className="inline-flex items-center justify-center border-2 border-muted-foreground/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary px-8 py-4 text-lg font-medium transition-all duration-300 rounded-md"
-                  >
-                    Download CV
-                  </a>
-                </>
+                <a 
+                  href={supabase.storage.from('assets').getPublicUrl(profile.resume_file).data.publicUrl + '?download=Sayde_Jabbour_CV.pdf'}
+                  className="inline-flex items-center justify-center border-2 border-muted-foreground/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary px-8 py-4 text-lg font-medium transition-all duration-300 rounded-md"
+                >
+                  Download CV
+                </a>
               )}
             </div>
           </div>
