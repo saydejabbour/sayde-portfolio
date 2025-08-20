@@ -51,6 +51,7 @@ export type Database = {
           name: string | null
           profile_picture: string | null
           resume_file: string | null
+          role: string | null
           role_title: string | null
           updated_at: string | null
         }
@@ -60,6 +61,7 @@ export type Database = {
           name?: string | null
           profile_picture?: string | null
           resume_file?: string | null
+          role?: string | null
           role_title?: string | null
           updated_at?: string | null
         }
@@ -69,6 +71,7 @@ export type Database = {
           name?: string | null
           profile_picture?: string | null
           resume_file?: string | null
+          role?: string | null
           role_title?: string | null
           updated_at?: string | null
         }
