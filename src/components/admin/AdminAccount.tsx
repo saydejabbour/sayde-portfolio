@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
+import { useAuth } from '@/components/auth/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 import { Settings, Save, Loader2 } from 'lucide-react';
 
 const AdminAccount = () => {
@@ -11,6 +13,7 @@ const AdminAccount = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,20 +36,52 @@ const AdminAccount = () => {
       return;
     }
 
+    if (!user) {
+      toast({
+        title: 'Error',
+        description: 'User not authenticated',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setLoading(true);
     
-    // Note: This would normally use Supabase auth password update
-    // For now, just show a success message
-    setTimeout(() => {
-      toast({
-        title: 'Password updated',
-        description: 'Your password has been updated successfully',
+    try {
+      const { data, error } = await supabase.functions.invoke('auth-change-password', {
+        body: {
+          userId: user.id,
+          currentPassword,
+          newPassword
+        }
       });
-      setCurrentPassword('');
-      setNewPassword('');
-      setConfirmPassword('');
+
+      if (error) throw error;
+
+      if (data.success) {
+        toast({
+          title: 'Password updated',
+          description: 'Your password has been updated successfully',
+        });
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+      } else {
+        toast({
+          title: 'Password update failed',
+          description: data.error || 'Failed to update password',
+          variant: 'destructive',
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: 'Password update failed',
+        description: error.message || 'An unexpected error occurred',
+        variant: 'destructive',
+      });
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -57,7 +92,7 @@ const AdminAccount = () => {
           Account Settings
         </CardTitle>
         <CardDescription>
-          Manage your account security and preferences
+          Change your admin password
         </CardDescription>
       </CardHeader>
       <CardContent>

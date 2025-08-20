@@ -1,10 +1,14 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+
+interface User {
+  id: string;
+  email: string;
+  role: string;
+}
 
 interface AuthContextType {
   user: User | null;
-  session: Session | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
@@ -26,44 +30,72 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
-      }
-    );
-
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
+    // Check for existing token on mount
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      verifyToken(token);
+    } else {
       setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    }
   }, []);
 
+  const verifyToken = async (token: string) => {
+    try {
+      const { data, error } = await supabase.functions.invoke('auth-verify', {
+        body: { token }
+      });
+
+      if (error) throw error;
+
+      if (data.success) {
+        setUser(data.user);
+      } else {
+        localStorage.removeItem('auth_token');
+      }
+    } catch (error) {
+      console.error('Token verification failed:', error);
+      localStorage.removeItem('auth_token');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    return { error };
+    try {
+      console.log('Attempting to sign in with:', email);
+      
+      const { data, error } = await supabase.functions.invoke('auth-login', {
+        body: { email, password }
+      });
+
+      if (error) {
+        console.error('Supabase function error:', error);
+        return { error: error.message || 'Login failed' };
+      }
+
+      if (data.success) {
+        localStorage.setItem('auth_token', data.token);
+        setUser(data.user);
+        return { error: null };
+      } else {
+        return { error: data.error || 'Login failed' };
+      }
+    } catch (error) {
+      console.error('Sign in error:', error);
+      return { error: 'Login failed' };
+    }
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    localStorage.removeItem('auth_token');
+    setUser(null);
   };
 
   const value: AuthContextType = {
     user,
-    session,
     loading,
     signIn,
     signOut,
