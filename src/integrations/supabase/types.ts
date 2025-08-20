@@ -14,7 +14,120 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact: {
+        Row: {
+          email: string | null
+          github: string | null
+          id: string
+          location: string | null
+          phone: string | null
+          social_links: Json | null
+          updated_at: string | null
+        }
+        Insert: {
+          email?: string | null
+          github?: string | null
+          id?: string
+          location?: string | null
+          phone?: string | null
+          social_links?: Json | null
+          updated_at?: string | null
+        }
+        Update: {
+          email?: string | null
+          github?: string | null
+          id?: string
+          location?: string | null
+          phone?: string | null
+          social_links?: Json | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      profile: {
+        Row: {
+          bio: string | null
+          id: string
+          name: string | null
+          profile_picture: string | null
+          resume_file: string | null
+          role_title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          id?: string
+          name?: string | null
+          profile_picture?: string | null
+          resume_file?: string | null
+          role_title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          id?: string
+          name?: string | null
+          profile_picture?: string | null
+          resume_file?: string | null
+          role_title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          image: string | null
+          link: string | null
+          technologies: string[] | null
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          image?: string | null
+          link?: string | null
+          technologies?: string[] | null
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          image?: string | null
+          link?: string | null
+          technologies?: string[] | null
+          title?: string
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          password_hash: string
+          role: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          password_hash: string
+          role: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          password_hash?: string
+          role?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
