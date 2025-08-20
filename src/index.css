@@ -59,17 +59,17 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Dark mode - Portfolio theme with royal blue accent */
-    --background: 222 84% 4%;
+    /* Dark mode - Modern portfolio theme */
+    --background: 222 47% 11%; /* Darker background like reference */
     --foreground: 210 40% 98%;
 
-    --card: 222 84% 5%;
+    --card: 222 47% 11%; /* Match background for seamless cards */
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 84% 4%;
+    --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 224 76% 55%; /* Slightly brighter royal blue for dark mode */
+    --primary: 224 76% 55%; /* Royal blue accent */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -78,7 +78,7 @@ All colors MUST be HSL.
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 224 76% 55%; /* Royal Blue accent for dark */
+    --accent: 224 76% 55%; /* Royal Blue accent */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
@@ -93,9 +93,9 @@ All colors MUST be HSL.
     --royal-blue-light: 224 76% 65%;
     --royal-blue-dark: 224 76% 45%;
     --gradient-primary: linear-gradient(135deg, hsl(224 76% 55%), hsl(224 76% 65%));
-    --gradient-hero: linear-gradient(180deg, hsl(222 84% 4%), hsl(217 32% 12%));
-    --shadow-royal: 0 10px 40px -10px hsl(224 76% 55% / 0.3);
-    --shadow-card: 0 4px 20px -2px hsl(0 0% 0% / 0.3);
+    --gradient-hero: linear-gradient(135deg, hsl(222 47% 11%), hsl(222 47% 8%));
+    --shadow-royal: 0 20px 60px -10px hsl(224 76% 55% / 0.4);
+    --shadow-card: 0 8px 32px -4px hsl(0 0% 0% / 0.4);
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;

@@ -14,13 +14,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-sm border-b border-border z-50">
+    <nav className="fixed top-0 w-full bg-background/90 backdrop-blur-md border-b border-border/20 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
             <button
               onClick={() => scrollToSection('hero')}
-              className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+              className="text-xl font-bold text-primary"
             >
               Sayde Jabbour
             </button>
@@ -28,28 +28,28 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-baseline space-x-8">
               <button
                 onClick={() => scrollToSection('hero')}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-foreground hover:text-primary px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
                 Home
               </button>
               <button
                 onClick={() => scrollToSection('about')}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-foreground hover:text-primary px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
                 About
               </button>
               <button
                 onClick={() => scrollToSection('projects')}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-foreground hover:text-primary px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
                 Projects
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-foreground hover:text-primary px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
                 Contact
               </button>
@@ -62,6 +62,7 @@ const Navbar = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
+              className="text-foreground"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </Button>
@@ -71,29 +72,29 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-background border-t border-border">
+        <div className="md:hidden border-t border-border/20">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-background/95 backdrop-blur-md">
             <button
               onClick={() => scrollToSection('hero')}
-              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium w-full text-left transition-colors"
+              className="text-foreground hover:text-primary block px-3 py-2 text-base font-medium w-full text-left transition-colors duration-200"
             >
               Home
             </button>
             <button
               onClick={() => scrollToSection('about')}
-              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium w-full text-left transition-colors"
+              className="text-foreground hover:text-primary block px-3 py-2 text-base font-medium w-full text-left transition-colors duration-200"
             >
               About
             </button>
             <button
               onClick={() => scrollToSection('projects')}
-              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium w-full text-left transition-colors"
+              className="text-foreground hover:text-primary block px-3 py-2 text-base font-medium w-full text-left transition-colors duration-200"
             >
               Projects
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium w-full text-left transition-colors"
+              className="text-foreground hover:text-primary block px-3 py-2 text-base font-medium w-full text-left transition-colors duration-200"
             >
               Contact
             </button>

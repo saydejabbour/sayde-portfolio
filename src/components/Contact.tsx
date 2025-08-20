@@ -49,25 +49,24 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="py-32 bg-background relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Get in{' '}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Touch
-            </span>
+            <span className="text-primary">Touch</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <div className="w-20 h-1 bg-primary mb-8"></div>
+          <p className="text-lg text-muted-foreground max-w-2xl">
             Ready to collaborate on your next project? Let's connect and discuss how we can work together
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {contactMethods.map((method, index) => (
-            <Card key={index} className="border-0 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-royal)] transition-all duration-300 hover:-translate-y-2 group">
+            <Card key={index} className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-royal)] transition-all duration-500 hover:-translate-y-2 group">
               <CardHeader className="text-center pb-2">
-                <div className={`w-16 h-16 bg-gradient-to-br ${method.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`w-16 h-16 bg-gradient-to-br ${method.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <method.icon className="h-8 w-8 text-primary" />
                 </div>
                 <CardTitle className="text-lg">{method.label}</CardTitle>
@@ -84,7 +83,7 @@ const Contact = () => {
                       window.open(method.href, '_blank');
                     }
                   }}
-                  className="border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground group-hover:shadow-md transition-all duration-200"
+                  className="border-primary/30 text-primary bg-primary/5 hover:bg-primary hover:text-primary-foreground group-hover:shadow-md transition-all duration-200"
                   disabled={method.href === '#'}
                 >
                   <ExternalLink className="h-3 w-3 mr-1" />
@@ -96,17 +95,17 @@ const Contact = () => {
         </div>
 
         <div className="text-center">
-          <Card className="max-w-2xl mx-auto border-0 shadow-[var(--shadow-card)] bg-gradient-to-br from-primary/5 to-accent/5">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-4">Ready to Start Your Project?</h3>
-              <p className="text-muted-foreground mb-6">
+          <Card className="max-w-2xl mx-auto border-0 bg-card/30 backdrop-blur-sm shadow-[var(--shadow-card)]">
+            <CardContent className="p-12">
+              <h3 className="text-3xl font-bold mb-4 text-foreground">Ready to Start Your Project?</h3>
+              <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
                 Whether you need a web application, database solution, or custom software development, 
                 I'm here to help bring your ideas to life with clean, efficient, and scalable code.
               </p>
               <Button
                 size="lg"
                 onClick={() => window.open(`mailto:${contact?.email || 'sayde.jabbour04@hotmail.com'}`, '_blank')}
-                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-[var(--shadow-royal)]"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-medium shadow-[var(--shadow-royal)] hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
                 <Mail className="mr-2 h-5 w-5" />
                 Let's Discuss Your Project

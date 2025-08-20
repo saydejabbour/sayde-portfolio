@@ -25,36 +25,35 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className="py-32 bg-background/50 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             My{' '}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Skills
-            </span>
+            <span className="text-primary">Skills</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <div className="w-20 h-1 bg-primary mb-8"></div>
+          <p className="text-lg text-muted-foreground max-w-2xl">
             Technologies and tools I work with to bring ideas to life
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
-            <Card key={index} className="border-0 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-royal)] transition-all duration-300 hover:-translate-y-2">
-              <CardHeader className="text-center">
-                <div className={`w-16 h-16 bg-gradient-to-br ${category.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <category.icon className="h-8 w-8 text-primary" />
+            <Card key={index} className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-royal)] transition-all duration-500 hover:-translate-y-3 group">
+              <CardHeader className="text-center pb-6">
+                <div className={`w-20 h-20 bg-gradient-to-br ${category.color} rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <category.icon className="h-10 w-10 text-primary" />
                 </div>
-                <CardTitle className="text-xl">{category.title}</CardTitle>
+                <CardTitle className="text-2xl font-bold">{category.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-wrap gap-2 justify-center">
+                <div className="flex flex-wrap gap-3 justify-center">
                   {category.skills.map((skill, skillIndex) => (
                     <Badge 
                       key={skillIndex} 
                       variant="secondary" 
-                      className="bg-gradient-to-r from-primary/10 to-accent/10 text-primary border-primary/20 hover:from-primary/20 hover:to-accent/20 transition-all duration-200"
+                      className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 transition-all duration-200 px-3 py-1 text-sm font-medium"
                     >
                       {skill}
                     </Badge>

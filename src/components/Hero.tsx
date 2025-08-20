@@ -33,23 +33,32 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center bg-gradient-to-b from-background to-muted/20 pt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section id="hero" className="min-h-screen flex items-center bg-[var(--gradient-hero)] pt-16 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Text Content */}
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
-                Hello, I'm{' '}
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                  {profile?.name || 'Sayde Jabbour'}
-                </span>
-              </h1>
-              <h2 className="text-xl md:text-2xl text-muted-foreground font-medium">
+          <div className="space-y-8 lg:pr-8">
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <p className="text-primary font-medium text-lg tracking-wide">Hello.</p>
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                  I'm{' '}
+                  <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                    {profile?.name || 'Sayde Jabbour'}
+                  </span>
+                </h1>
+              </div>
+              <h2 className="text-2xl md:text-3xl text-foreground font-bold">
                 {profile?.role_title || 'Computer Science Student & Developer'}
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl">
-                Building secure, scalable, and user-friendly applications.
+              <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
+                Building secure, scalable, and user-friendly applications with a focus on innovation and clean design.
               </p>
             </div>
 
@@ -57,18 +66,16 @@ const Hero = () => {
               <Button
                 onClick={scrollToContact}
                 size="lg"
-                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-[var(--shadow-royal)]"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-medium shadow-[var(--shadow-royal)] hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                <MessageCircle className="mr-2 h-5 w-5" />
-                Get a project?
+                Get a project
               </Button>
               <Button
                 onClick={handleResumeDownload}
                 variant="outline"
                 size="lg"
-                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                className="border-2 border-muted-foreground/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary px-8 py-4 text-lg font-medium transition-all duration-300"
               >
-                <Download className="mr-2 h-5 w-5" />
                 My Resume
               </Button>
             </div>
@@ -77,24 +84,33 @@ const Hero = () => {
           {/* Profile Image */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
-              <div className="w-80 h-80 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-2">
-                <div className="w-full h-full rounded-full overflow-hidden bg-card shadow-[var(--shadow-card)]">
-                  {profile?.profile_picture ? (
-                    <img
-                      src={supabase.storage.from('assets').getPublicUrl(profile.profile_picture).data.publicUrl}
-                      alt={profile.name || 'Sayde Jabbour'}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
-                      <span className="text-6xl font-bold text-muted-foreground">
-                        {(profile?.name || 'SJ').charAt(0)}
-                      </span>
-                    </div>
-                  )}
+              {/* Decorative rings */}
+              <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-pulse"></div>
+              <div className="absolute -inset-4 rounded-full border-2 border-primary/10"></div>
+              
+              {/* Profile image container */}
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+                <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 p-1 shadow-[var(--shadow-royal)]">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-card">
+                    {profile?.profile_picture ? (
+                      <img
+                        src={supabase.storage.from('assets').getPublicUrl(profile.profile_picture).data.publicUrl}
+                        alt={profile.name || 'Sayde Jabbour'}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-muted to-muted/30 flex items-center justify-center">
+                        <span className="text-8xl font-bold text-muted-foreground">
+                          {(profile?.name || 'SJ').charAt(0)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-xl -z-10"></div>
+
+              {/* Glowing effect */}
+              <div className="absolute -inset-8 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-2xl -z-10 opacity-60"></div>
             </div>
           </div>
         </div>

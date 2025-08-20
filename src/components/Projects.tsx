@@ -27,16 +27,14 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-20 bg-muted/30">
+    <section id="projects" className="py-32 bg-background relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            My{' '}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Projects
-            </span>
+        <div className="mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="text-primary">Projects</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <div className="w-20 h-1 bg-primary mb-8"></div>
+          <p className="text-lg text-muted-foreground max-w-2xl">
             A showcase of my academic and personal projects demonstrating various skills and technologies
           </p>
         </div>
@@ -45,46 +43,48 @@ const Projects = () => {
           {projects.map((project, index) => {
             const IconComponent = getProjectIcon(project.title);
             return (
-              <Card key={project.id} className="border-0 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-royal)] transition-all duration-300 hover:-translate-y-2 group">
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center group-hover:from-primary/30 group-hover:to-accent/30 transition-all duration-300">
-                      <IconComponent className="h-6 w-6 text-primary" />
+              <Card key={project.id} className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-royal)] transition-all duration-500 hover:-translate-y-2 group overflow-hidden">
+                {project.image && (
+                  <div className="h-48 overflow-hidden">
+                    <img
+                      src={supabase.storage.from('assets').getPublicUrl(project.image).data.publicUrl}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                )}
+                <CardHeader className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center group-hover:from-primary/30 group-hover:to-accent/30 transition-all duration-300">
+                      <IconComponent className="h-7 w-7 text-primary" />
                     </div>
                     {project.link && (
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={() => window.open(project.link, '_blank')}
-                        className="hover:bg-primary/10"
+                        className="hover:bg-primary/10 text-primary"
                       >
-                        <ExternalLink className="h-4 w-4" />
+                        <ExternalLink className="h-5 w-5" />
                       </Button>
                     )}
                   </div>
-                  <CardTitle className="text-xl leading-tight group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </CardTitle>
-                  <CardDescription className="text-muted-foreground">
-                    {project.description}
-                  </CardDescription>
+                  <div>
+                    <CardTitle className="text-xl leading-tight group-hover:text-primary transition-colors duration-300 mb-3">
+                      {project.title}
+                    </CardTitle>
+                    <CardDescription className="text-muted-foreground leading-relaxed">
+                      {project.description}
+                    </CardDescription>
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  {project.image && (
-                    <div className="mb-4 rounded-lg overflow-hidden">
-                      <img
-                        src={supabase.storage.from('assets').getPublicUrl(project.image).data.publicUrl}
-                        alt={project.title}
-                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
                   <div className="flex flex-wrap gap-2">
                     {project.technologies?.map((tech, techIndex) => (
                       <Badge 
                         key={techIndex} 
                         variant="outline"
-                        className="border-primary/30 text-primary hover:bg-primary/10 transition-colors duration-200"
+                        className="border-primary/30 text-primary bg-primary/5 hover:bg-primary/10 transition-colors duration-200"
                       >
                         {tech}
                       </Badge>

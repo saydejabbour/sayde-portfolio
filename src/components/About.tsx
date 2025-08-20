@@ -40,65 +40,80 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-muted/30">
+    <section id="about" className="py-32 bg-background relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             About{' '}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Me
-            </span>
+            <span className="text-primary">me</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Get to know more about my background, skills, and passion for technology
-          </p>
+          <div className="w-20 h-1 bg-primary mb-8"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Bio Section */}
-          <div className="space-y-6">
+          <div className="lg:col-span-2 space-y-8">
             <div className="prose prose-lg max-w-none">
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed text-lg">
                 {profile?.bio || `I'm a computer science student at LIU (GPA 3.77) with experience in web development, databases, and robotics. I enjoy building real-world projects that combine functionality with design. My work spans from cybersecurity websites to assistive wearable devices, with a strong focus on reliability and creativity.`}
               </p>
             </div>
 
-            <div className="pt-6">
-              <h3 className="text-xl font-semibold mb-4 text-primary">Key Highlights</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-muted-foreground">Computer Science Student at LIU</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-foreground">Education</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-muted-foreground">Computer Science at LIU</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-muted-foreground">GPA: 3.77</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-muted-foreground">Expected Graduation: July 2026</span>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-muted-foreground">Full-stack web development experience</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-muted-foreground">Database design and optimization</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-muted-foreground">Robotics and IoT projects</span>
+              </div>
+              
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-foreground">Expertise</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-muted-foreground">Web Development</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-muted-foreground">Database Design</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-muted-foreground">Robotics & IoT</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {stats.map((stat, index) => (
-              <Card key={index} className="border-0 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-royal)] transition-all duration-300 hover:-translate-y-1">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <stat.icon className="h-6 w-6 text-primary" />
+          {/* Stats Section */}
+          <div className="space-y-8">
+            <h3 className="text-2xl font-bold text-foreground">Achievements</h3>
+            <div className="space-y-6">
+              {stats.map((stat, index) => (
+                <div key={index} className="flex items-center space-x-4 p-4 bg-card/50 rounded-lg border border-border/10 hover:bg-card transition-colors duration-300">
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <stat.icon className="h-7 w-7 text-primary" />
                   </div>
-                  <h4 className="font-semibold text-sm mb-1">{stat.label}</h4>
-                  <p className="text-xs text-muted-foreground">{stat.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                  <div>
+                    <h4 className="font-bold text-foreground text-lg">{stat.label}</h4>
+                    <p className="text-sm text-muted-foreground">{stat.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
