@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { toast } from 'sonner';
+import { toast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 
 const Signup = () => {
@@ -26,7 +26,11 @@ const Signup = () => {
     e.preventDefault();
     
     if (adminExists) {
-      toast.error('Signups are closed. An admin already exists.');
+      toast({
+        title: 'Signups Closed',
+        description: 'An admin already exists.',
+        variant: 'destructive',
+      });
       return;
     }
 
@@ -36,13 +40,24 @@ const Signup = () => {
       const { error } = await signUp(email, password);
       
       if (error) {
-        toast.error(error.message || 'Signup failed');
+        toast({
+          title: 'Signup Failed',
+          description: error.message || 'Please try again.',
+          variant: 'destructive',
+        });
       } else {
-        toast.success('Account created successfully! Please check your email for verification.');
+        toast({
+          title: 'Account Created!',
+          description: 'Please check your email for verification.',
+        });
         navigate('/login');
       }
-    } catch (error) {
-      toast.error('Signup failed');
+    } catch (error: any) {
+      toast({
+        title: 'Signup Failed',
+        description: error.message || 'An unexpected error occurred.',
+        variant: 'destructive',
+      });
     } finally {
       setLoading(false);
     }
