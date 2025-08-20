@@ -44,7 +44,7 @@ const Hero = () => {
               <div className="space-y-2">
                 <p className="text-primary font-medium text-lg tracking-wide">Hello.</p>
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                  I'm{' '}
+                  <span className="text-primary">I'm</span>{' '}
                   <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                     {profile?.name || 'Sayde Jabbour'}
                   </span>
