@@ -27,15 +27,6 @@ const Hero = () => {
     }
   };
 
-  const getResumeUrl = () => {
-    if (profile?.resume_file) {
-      const { data } = supabase.storage
-        .from('assets')
-        .getPublicUrl(profile.resume_file);
-      return data.publicUrl;
-    }
-    return null;
-  };
 
   return (
     <section id="hero" className="min-h-screen flex items-center bg-[var(--gradient-hero)] pt-16 relative overflow-hidden">
@@ -75,26 +66,36 @@ const Hero = () => {
               >
                 Get a project
               </Button>
-              {getResumeUrl() ? (
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-muted-foreground/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary px-8 py-4 text-lg font-medium transition-all duration-300"
-                >
-                  <a href={getResumeUrl()} download target="_blank" rel="noopener noreferrer">
-                    My Resume
-                  </a>
-                </Button>
-              ) : (
-                <Button
-                  variant="outline"
-                  size="lg"
-                  disabled
-                  className="border-2 border-muted-foreground/20 text-muted-foreground px-8 py-4 text-lg font-medium opacity-50"
-                >
-                  Resume Not Available
-                </Button>
+              {profile?.resume_file && (
+                <>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="border-2 border-muted-foreground/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary px-8 py-4 text-lg font-medium transition-all duration-300"
+                  >
+                    <a 
+                      href={supabase.storage.from('assets').getPublicUrl(profile.resume_file).data.publicUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      View Resume
+                    </a>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="border-2 border-muted-foreground/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary px-8 py-4 text-lg font-medium transition-all duration-300"
+                  >
+                    <a 
+                      href={supabase.storage.from('assets').getPublicUrl(profile.resume_file).data.publicUrl} 
+                      download="Sayde_Jabbour_CV.pdf"
+                    >
+                      Download CV
+                    </a>
+                  </Button>
+                </>
               )}
             </div>
           </div>
