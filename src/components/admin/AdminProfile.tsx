@@ -22,9 +22,13 @@ const AdminProfile = () => {
   const { data: profile, isLoading } = useQuery({
     queryKey: ['admin-profile'],
     queryFn: async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Not authenticated');
+      
       const { data, error } = await supabase
         .from('profile')
         .select('*')
+        .eq('id', user.id)
         .single();
       if (error) throw error;
       return data;
@@ -72,6 +76,9 @@ const AdminProfile = () => {
       }
 
       // Update profile data
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Not authenticated');
+      
       const { error } = await supabase
         .from('profile')
         .update({
@@ -81,7 +88,7 @@ const AdminProfile = () => {
           profile_picture: profilePictureUrl,
           resume_file: resumeFileUrl,
         })
-        .eq('id', profile?.id);
+        .eq('id', user.id);
 
       if (error) throw error;
     },
