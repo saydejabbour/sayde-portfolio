@@ -13,7 +13,7 @@ import AdminAccount from '@/components/admin/AdminAccount';
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('profile');
-  const { signOut } = useAuth();
+  const { signOut, profile } = useAuth();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
@@ -23,7 +23,7 @@ const Admin = () => {
         title: 'Signed out',
         description: 'You have been signed out successfully',
       });
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       toast({
         title: 'Error',
