@@ -50,7 +50,7 @@ const Hero = () => {
                   </span>
                 </h1>
               </div>
-              <h2 className="text-2xl md:text-3xl text-foreground font-bold">
+              <h2 className="text-2xl md:text-3xl text-primary font-bold">
                 {profile?.role_title || 'Computer Science Student & Developer'}
               </h2>
               <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
