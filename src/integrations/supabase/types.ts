@@ -44,7 +44,7 @@ export type Database = {
         }
         Relationships: []
       }
-      profile: {
+      profiles: {
         Row: {
           bio: string | null
           id: string
