@@ -95,10 +95,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--gradient-hero)] p-4 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+      </div>
+      <Card className="w-full max-w-md border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)] relative z-10">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
+          <CardTitle className="text-2xl font-bold text-primary">Admin Login</CardTitle>
           <CardDescription>
             Sign in to access the admin panel
           </CardDescription>
@@ -114,6 +119,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="bg-background/50"
               />
             </div>
             <div className="space-y-2">
@@ -125,11 +131,12 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="bg-background/50"
               />
             </div>
             <Button
               type="submit"
-              className="w-full"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-royal)] hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               disabled={loading || redirecting}
             >
               {loading ? (
@@ -147,15 +154,6 @@ const Login = () => {
               )}
             </Button>
           </form>
-          
-          <div className="mt-6 text-center">
-            <Link 
-              to="/signup" 
-              className="text-sm text-primary hover:underline"
-            >
-              Need to create an account? Sign up
-            </Link>
-          </div>
           
           <div className="mt-4 text-center">
             <Link 

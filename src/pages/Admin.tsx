@@ -34,33 +34,36 @@ const Admin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/30">
-      <div className="border-b border-border bg-background/80 backdrop-blur-sm">
+    <div className="min-h-screen bg-[var(--gradient-hero)] relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="border-b border-border/20 bg-background/20 backdrop-blur-sm relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <div className="w-8 h-8 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center">
                 <Settings className="h-4 w-4 text-primary" />
               </div>
-              <h1 className="text-xl font-bold">
-                Admin{' '}
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                  Panel
-                </span>
+              <h1 className="text-xl font-bold text-primary">
+                Admin Panel
               </h1>
             </div>
             <div className="flex items-center space-x-4">
               <Button
                 variant="outline"
                 onClick={() => navigate('/')}
-                className="border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground"
+                className="border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground shadow-[var(--shadow-card)] hover:shadow-xl transition-all duration-300"
               >
                 View Site
               </Button>
               <Button
                 variant="destructive"
                 onClick={handleSignOut}
-                className="bg-destructive hover:bg-destructive/90"
+                className="bg-destructive hover:bg-destructive/90 shadow-[var(--shadow-card)] hover:shadow-xl transition-all duration-300"
               >
                 <LogOut className="mr-2 h-4 w-4" />
                 Sign Out
@@ -70,11 +73,11 @@ const Admin = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <Card className="lg:col-span-1 border-0 shadow-[var(--shadow-card)] h-fit">
+          <Card className="lg:col-span-1 border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)] h-fit">
             <CardHeader>
-              <CardTitle className="text-lg">Navigation</CardTitle>
+              <CardTitle className="text-lg text-primary">Navigation</CardTitle>
               <CardDescription>Manage your portfolio content</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">

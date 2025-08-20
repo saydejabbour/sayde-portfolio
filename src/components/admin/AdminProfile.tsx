@@ -113,7 +113,7 @@ const AdminProfile = () => {
 
   if (isLoading) {
     return (
-      <Card className="border-0 shadow-[var(--shadow-card)]">
+        <Card className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)]">
         <CardContent className="flex items-center justify-center py-8">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </CardContent>
@@ -123,7 +123,7 @@ const AdminProfile = () => {
 
   return (
     <div className="space-y-6">
-      <Card className="border-0 shadow-[var(--shadow-card)]">
+      <Card className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)]">
         <CardHeader>
           <CardTitle className="flex items-center">
             <User className="mr-2 h-5 w-5 text-primary" />
@@ -172,7 +172,7 @@ const AdminProfile = () => {
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="border-0 shadow-[var(--shadow-card)]">
+        <Card className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)]">
           <CardHeader>
             <CardTitle className="flex items-center">
               <User className="mr-2 h-5 w-5 text-primary" />
@@ -217,7 +217,7 @@ const AdminProfile = () => {
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-[var(--shadow-card)]">
+        <Card className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)]">
           <CardHeader>
             <CardTitle className="flex items-center">
               <FileText className="mr-2 h-5 w-5 text-primary" />
@@ -261,7 +261,7 @@ const AdminProfile = () => {
         </Card>
       </div>
 
-      <Card className="border-0 shadow-[var(--shadow-card)]">
+      <Card className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)]">
         <CardContent className="pt-6">
           <Button
             onClick={() => updateProfile.mutate()}

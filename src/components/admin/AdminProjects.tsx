@@ -159,7 +159,7 @@ const AdminProjects = () => {
 
   return (
     <div className="space-y-6">
-      <Card className="border-0 shadow-[var(--shadow-card)]">
+      <Card className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)]">
         <CardHeader>
           <div className="flex justify-between items-center">
             <div>

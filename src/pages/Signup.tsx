@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -17,9 +18,28 @@ const Signup = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // For now, allow signup - the database trigger will handle role assignment
-    // In a real scenario, you might want to check if admin exists
-    setAdminExists(false);
+    const checkAdminExists = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('id')
+          .eq('role', 'admin')
+          .limit(1)
+          .maybeSingle();
+        
+        if (error) {
+          console.error('Error checking admin:', error);
+          setAdminExists(false);
+        } else {
+          setAdminExists(!!data);
+        }
+      } catch (error) {
+        console.error('Error checking admin:', error);
+        setAdminExists(false);
+      }
+    };
+
+    checkAdminExists();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -65,8 +85,13 @@ const Signup = () => {
 
   if (adminExists === null) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--gradient-hero)] relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+        </div>
+        <div className="text-center relative z-10">
           <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
           <p className="text-muted-foreground">Loading...</p>
         </div>
@@ -76,18 +101,23 @@ const Signup = () => {
 
   if (adminExists) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background p-4">
-        <Card className="w-full max-w-md">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--gradient-hero)] p-4 relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+        </div>
+        <Card className="w-full max-w-md border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)] relative z-10">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold">Signups Closed</CardTitle>
+            <CardTitle className="text-2xl font-bold text-primary">Signups Closed</CardTitle>
             <CardDescription>
-              An admin account already exists. Signups are closed.
+              Signups are closed.
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
             <div className="space-y-4">
               <Link to="/login">
-                <Button className="w-full">
+                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-royal)] hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                   Go to Login
                 </Button>
               </Link>
@@ -105,10 +135,15 @@ const Signup = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--gradient-hero)] p-4 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+      </div>
+      <Card className="w-full max-w-md border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)] relative z-10">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Create Admin Account</CardTitle>
+          <CardTitle className="text-2xl font-bold text-primary">Create Admin Account</CardTitle>
           <CardDescription>
             Create the first admin account for this site
           </CardDescription>
@@ -124,6 +159,7 @@ const Signup = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="bg-background/50"
               />
             </div>
             <div className="space-y-2">
@@ -136,11 +172,12 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
+                className="bg-background/50"
               />
             </div>
             <Button
               type="submit"
-              className="w-full"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-royal)] hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               disabled={loading}
             >
               {loading ? (

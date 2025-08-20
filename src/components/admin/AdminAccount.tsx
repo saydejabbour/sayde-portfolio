@@ -85,7 +85,7 @@ const AdminAccount = () => {
   };
 
   return (
-    <Card className="border-0 shadow-[var(--shadow-card)]">
+    <Card className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)]">
       <CardHeader>
         <CardTitle className="flex items-center">
           <Settings className="mr-2 h-5 w-5 text-primary" />

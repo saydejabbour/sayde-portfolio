@@ -69,7 +69,7 @@ const AdminContact = () => {
 
   if (isLoading) {
     return (
-      <Card className="border-0 shadow-[var(--shadow-card)]">
+      <Card className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)]">
         <CardContent className="flex items-center justify-center py-8">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </CardContent>
@@ -78,7 +78,7 @@ const AdminContact = () => {
   }
 
   return (
-    <Card className="border-0 shadow-[var(--shadow-card)]">
+    <Card className="border-0 bg-card/50 backdrop-blur-sm shadow-[var(--shadow-royal)]">
       <CardHeader>
         <CardTitle className="flex items-center">
           <MessageSquare className="mr-2 h-5 w-5 text-primary" />
