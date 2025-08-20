@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           // Fetch user profile
           setTimeout(async () => {
             const { data: profileData } = await supabase
-              .from('profiles')
+              .from('profile')
               .select('*')
               .eq('id', session.user.id)
               .single();
@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (session?.user) {
         // Fetch user profile
         supabase
-          .from('profiles')
+          .from('profile')
           .select('*')
           .eq('id', session.user.id)
           .single()
