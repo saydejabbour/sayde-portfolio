@@ -70,22 +70,6 @@ const Contact = () => {
               </CardContent>
             </Card>)}
         </div>
-
-        <div className="text-center">
-          <Card className="max-w-2xl mx-auto border-0 bg-card/30 backdrop-blur-sm shadow-[var(--shadow-card)]">
-            <CardContent className="p-12">
-              <h3 className="text-3xl font-bold mb-4 text-foreground">Ready to Start Your Project?</h3>
-              <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
-                Whether you need a web application, database solution, or custom software development, 
-                I'm here to help bring your ideas to life with clean, efficient, and scalable code.
-              </p>
-              <Button size="lg" onClick={() => window.open(`mailto:${contact?.email || 'sayde.jabbour04@hotmail.com'}`, '_blank')} className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-medium shadow-[var(--shadow-royal)] hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <Mail className="mr-2 h-5 w-5" />
-                Let's Discuss Your Project
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </section>;
 };
