@@ -59,6 +59,13 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
+              <Button
+                onClick={scrollToContact}
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-medium shadow-[var(--shadow-royal)] hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                Contact Me
+              </Button>
               {profile?.resume_file && (
                 <a 
                   href={supabase.storage.from('assets').getPublicUrl(profile.resume_file).data.publicUrl + '?download=Sayde_Jabbour_CV.pdf'}
