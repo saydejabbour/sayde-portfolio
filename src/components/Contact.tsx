@@ -1,7 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Phone, Mail, MapPin, Github, Copy } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Phone, Mail, MapPin, Github, Copy, ChevronDown } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
@@ -44,6 +45,50 @@ const Contact = () => {
     return cleaned.startsWith('+') ? cleaned : `+${cleaned}`;
   };
 
+  // Platform detection for cross-platform map links
+  const getPlatform = () => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const platform = navigator.platform?.toLowerCase() || '';
+    
+    if (/iphone|ipad|ipod/.test(userAgent) || platform.includes('mac')) {
+      return 'ios';
+    } else if (/android/.test(userAgent)) {
+      return 'android';
+    } else {
+      return 'desktop';
+    }
+  };
+
+  const getMapUrls = (location: string) => {
+    const q = encodeURIComponent(location);
+    const platform = getPlatform();
+    
+    const urls = {
+      ios: {
+        primary: `maps://?q=${q}`,
+        fallback: `https://maps.apple.com/?q=${q}`,
+        target: '_self'
+      },
+      android: {
+        primary: `geo:0,0?q=${q}`,
+        fallback: `https://maps.google.com/?q=${q}`,
+        target: '_self'
+      },
+      desktop: {
+        primary: `https://maps.google.com/?q=${q}`,
+        fallback: `https://www.openstreetmap.org/search?query=${q}`,
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }
+    };
+
+    return {
+      ...urls[platform],
+      openstreetmap: `https://www.openstreetmap.org/search?query=${q}`,
+      bing: `https://www.bing.com/maps?q=${q}`
+    };
+  };
+
   const getGitHubUrl = (github: string | null) => {
     if (!github) return 'https://github.com/saydejabbour';
     if (github.startsWith('http')) return github;
@@ -55,6 +100,7 @@ const Contact = () => {
   const location = contact?.location || 'Koura, Lebanon';
   const githubUrl = getGitHubUrl(contact?.github);
   const githubHandle = contact?.github || 'saydejabbour';
+  const mapUrls = getMapUrls(location);
 
   const contactMethods = [
     {
@@ -85,14 +131,15 @@ const Contact = () => {
       icon: MapPin,
       label: 'Location',
       value: location,
-      href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`,
+      href: mapUrls.primary,
       buttonText: 'Open Map',
       ariaLabel: 'Open map',
       color: 'from-red-500/20 to-red-600/20',
-      target: '_blank',
-      rel: 'noopener noreferrer',
+      target: mapUrls.target as '_self' | '_blank',
+      rel: (mapUrls as any).rel,
       copyText: location,
-      copyToast: 'Address copied'
+      copyToast: 'Address copied',
+      isLocation: true
     },
     {
       icon: Github,
@@ -160,8 +207,55 @@ const Contact = () => {
                         </TooltipContent>
                       </Tooltip>
                       
-                      <div className="w-full bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                        {method.buttonText}
+                      <div className="flex flex-col gap-2">
+                        <div className="w-full bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                          {method.buttonText}
+                        </div>
+                        
+                        {(method as any).isLocation && (
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="w-full text-xs"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                }}
+                              >
+                                More options <ChevronDown className="h-3 w-3 ml-1" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent 
+                              className="w-48 bg-background border border-border shadow-lg z-50"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <DropdownMenuItem asChild>
+                                <a
+                                  href={mapUrls.openstreetmap}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="w-full cursor-pointer"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  OpenStreetMap
+                                </a>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem asChild>
+                                <a
+                                  href={mapUrls.bing}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="w-full cursor-pointer"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  Bing Maps
+                                </a>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
