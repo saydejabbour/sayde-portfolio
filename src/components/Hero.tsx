@@ -42,7 +42,7 @@ const Hero = () => {
           <div className="space-y-8 lg:pr-8">
             <div className="space-y-6">
               <div className="space-y-2">
-                <p className="text-primary font-medium text-lg tracking-wide">Hello.</p>
+                <p className="text-primary font-medium text-lg tracking-wide"> Hello 👋 </p>
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
                   <span className="text-primary">I'm</span>{' '}
                   <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -51,7 +51,8 @@ const Hero = () => {
                 </h1>
               </div>
               <h2 className="text-2xl md:text-3xl text-primary font-bold">
-                {profile?.role_title || 'Computer Science Student & Developer'}
+              {profile?.role_title ?? 'Computer Science Student & Developer'}
+
               </h2>
               <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
                 {profile?.bio || 'Building secure, scalable, and user-friendly applications with a focus on innovation and clean design.'}
